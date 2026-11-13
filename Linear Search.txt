@@ -1,0 +1,63 @@
+#include<iostream>
+using namespace std;
+
+// Function for Linear Search
+int linear_search(int a[], int n, int x)
+{
+    for(int i = 0; i < n; i++)
+    {
+        if(a[i] == x)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int main()
+{
+    int n, x;
+    int a[20];
+
+    // Accept array size
+    cout << "Enter the size of the array: ";
+    cin >> n;
+
+    // Validate array size
+    if(n <= 0 || n > 20)
+    {
+        cout << "Invalid array size!" << endl;
+        return 0;
+    }
+
+    // Accept array elements
+    cout << "Enter " << n << " integers:\n";
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    // Accept target element
+    cout << "Enter the target element to search: ";
+    cin >> x;
+
+    // Call Linear Search function
+    int position = linear_search(a, n, x);
+
+    // Display result
+    if(position != -1)
+    {
+        cout << "Element " << x << " found at index: " << position << endl;
+
+        cout << "Position in array: " << position + 1 << endl;
+    }
+    else
+    {
+        cout << "Element " << x<< " not found in the array." << endl;
+    }
+
+    return 0;
+}
+

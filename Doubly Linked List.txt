@@ -1,0 +1,263 @@
+#include <iostream>
+using namespace std;
+
+// Node class for doubly linked list
+class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+
+    Node(int val) {
+        data = val;
+        prev = nullptr;
+        next = nullptr;
+    }
+};
+
+// Doubly linked list class
+class DoublyLinkedList {
+private:
+    Node* head;
+
+public:
+    DoublyLinkedList() {
+        head = nullptr;
+    }
+
+    // Insert node at the end
+    void insert(int val) {
+        Node* p = new Node(val);
+
+        if (head == nullptr) {
+            head = p;
+        } 
+        else {
+            Node* q = head;
+
+            while (q->next != nullptr) {
+                q = q->next;
+            }
+
+            q->next = p;
+            p->prev = q;
+        }
+    }
+
+    // Delete node by value
+    void remove(int val) {
+        Node *p, *q;
+        q = head;
+
+        // If the list is empty
+        if (q == nullptr) {
+            cout << "Value " << val
+                 << " not found in the list.\n";
+            return;
+        }
+
+        // If the first node contains the value
+        if (q->data == val) {
+            p = head;
+            head = head->next;
+
+            if (head != nullptr) {
+                head->prev = nullptr;
+            }
+
+            delete p;
+            return;
+        }
+
+        // Search for the value
+        while (q->next != nullptr) {
+            if (q->next->data == val) {
+                p = q->next;
+                q->next = p->next;
+
+                if (p->next != nullptr) {
+                    p->next->prev = q;
+                }
+
+                delete p;
+                return;
+            }
+
+            q = q->next;
+        }
+
+        cout << "Value " << val
+             << " not found in the list.\n";
+    }
+
+    // Display list forward
+    void displayForward() {
+        Node* q = head;
+
+        cout << "Forward: ";
+
+        while (q != nullptr) {
+            cout << q->data << " <-> ";
+            q = q->next;
+        }
+
+        cout << "NULL\n";
+    }
+
+    // Display list backward
+    void displayBackward() {
+        Node* q = head;
+
+        if (q == nullptr) {
+            cout << "Backward: NULL\n";
+            return;
+        }
+
+        // Move to the tail
+        while (q->next != nullptr) {
+            q = q->next;
+        }
+
+        cout << "Backward: ";
+
+        while (q != nullptr) {
+            cout << q->data << " <-> ";
+            q = q->prev;
+        }
+
+        cout << "NULL\n";
+    }
+};
+
+// Main function
+int main() {
+    DoublyLinkedList list;
+
+    list.insert(10);
+    list.insert(20);
+    list.insert(30);
+
+    list.displayForward();
+    list.displayBackward();
+
+    list.remove(20);
+
+    list.displayForward();
+    list.displayBackward();
+
+    return 0;
+}
+
+/*
+
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* prev;
+    Node* next;
+
+    Node(int val) {
+        data = val;
+        prev = next = nullptr;
+    }
+};
+
+class DoublyLinkedList {
+    Node* head;
+
+public:
+    DoublyLinkedList() {
+        head = nullptr;
+    }
+
+    void insert(int val) {
+        Node* p = new Node(val);
+
+        if (head == nullptr) {
+            head = p;
+        }
+        else {
+            Node* q = head;
+
+            while (q->next != nullptr)
+                q = q->next;
+
+            q->next = p;
+            p->prev = q;
+        }
+    }
+
+    void remove(int val) {
+        Node* q = head;
+
+        while (q != nullptr && q->data != val)
+            q = q->next;
+
+        if (q == nullptr) {
+            cout << "Value not found\n";
+            return;
+        }
+
+        if (q->prev != nullptr)
+            q->prev->next = q->next;
+        else
+            head = q->next;
+
+        if (q->next != nullptr)
+            q->next->prev = q->prev;
+
+        delete q;
+    }
+
+    void displayForward() {
+        Node* q = head;
+
+        cout << "Forward: ";
+        while (q != nullptr) {
+            cout << q->data << " <-> ";
+            q = q->next;
+        }
+        cout << "NULL\n";
+    }
+
+    void displayBackward() {
+        Node* q = head;
+
+        if (q == nullptr) {
+            cout << "Backward: NULL\n";
+            return;
+        }
+
+        while (q->next != nullptr)
+            q = q->next;
+
+        cout << "Backward: ";
+        while (q != nullptr) {
+            cout << q->data << " <-> ";
+            q = q->prev;
+        }
+        cout << "NULL\n";
+    }
+};
+
+int main() {
+    DoublyLinkedList list;
+
+    list.insert(10);
+    list.insert(20);
+    list.insert(30);
+
+    list.displayForward();
+    list.displayBackward();
+
+    list.remove(20);
+
+    list.displayForward();
+    list.displayBackward();
+
+    return 0;
+}
+*/

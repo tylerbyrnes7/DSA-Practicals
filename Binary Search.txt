@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+
+// Function for Binary Search
+int binary_search(int a[], int n, int x)
+{
+    int first = 0;
+    int last = n - 1;
+    int mid;
+
+    while(first <= last)
+    {
+        mid = first + (last - first) / 2;
+
+        if(a[mid] == x)
+        {
+            return mid;
+        }
+        else if(a[mid] < x)
+        {
+            first = mid + 1;
+        }
+        else
+        {
+            last = mid - 1;
+        }
+    }
+
+    return -1;
+}
+
+int main()
+{
+    int n, x;
+    int a[20];
+
+    // Accept array size
+    cout << "Enter the size of the array: ";
+    cin >> n;
+
+    // Validate array size
+    if(n <= 0 || n > 20)
+    {
+        cout << "Invalid array size!" << endl;
+        return 0;
+    }
+
+    // Accept sorted array elements
+    cout << "Enter " << n << " sorted integers:\n";
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    // Check whether array is sorted
+    for(int i = 1; i < n; i++)
+    {
+        if(a[i] < a[i - 1])
+        {
+            cout << "Array is not sorted!" << endl;
+            return 0;
+        }
+    }
+
+    // Accept target element
+    cout << "Enter the target element to search: ";
+    cin >> x;
+
+    // Call Binary Search function
+    int position = binary_search(a, n, x);
+
+    // Display result
+    if(position != -1)
+    {
+        cout << "Element " << x
+             << " found at index: " << position << endl;
+
+        cout << "Position in array: " << position + 1 << endl;
+    }
+    else
+    {
+        cout << "Element " << x
+             << " not found in the array." << endl;
+    }
+
+    return 0;
+}
